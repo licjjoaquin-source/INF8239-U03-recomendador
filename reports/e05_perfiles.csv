@@ -1,0 +1,31 @@
+perfil,userId,n_historial,generos_frecuentes,metodo,posicion,movieId,titulo,generos,nota
+historial amplio,414,2697,"Drama, Comedy, Action","híbrido α=0.75, f=20",1,2324,Life Is Beautiful (La Vita è bella) (1997),Comedy|Drama|Romance|War,personalizada; excluye ítems vistos
+historial amplio,414,2697,"Drama, Comedy, Action","híbrido α=0.75, f=20",2,1203,12 Angry Men (1957),Drama,personalizada; excluye ítems vistos
+historial amplio,414,2697,"Drama, Comedy, Action","híbrido α=0.75, f=20",3,914,My Fair Lady (1964),Comedy|Drama|Musical|Romance,personalizada; excluye ítems vistos
+historial amplio,414,2697,"Drama, Comedy, Action","híbrido α=0.75, f=20",4,92259,Intouchables (2011),Comedy|Drama,personalizada; excluye ítems vistos
+historial amplio,414,2697,"Drama, Comedy, Action","híbrido α=0.75, f=20",5,1230,Annie Hall (1977),Comedy|Romance,personalizada; excluye ítems vistos
+historial amplio,414,2697,"Drama, Comedy, Action","híbrido α=0.75, f=20",6,898,"Philadelphia Story, The (1940)",Comedy|Drama|Romance,personalizada; excluye ítems vistos
+historial amplio,414,2697,"Drama, Comedy, Action","híbrido α=0.75, f=20",7,1219,Psycho (1960),Crime|Horror,personalizada; excluye ítems vistos
+historial amplio,414,2697,"Drama, Comedy, Action","híbrido α=0.75, f=20",8,44555,"Lives of Others, The (Das leben der Anderen) (2006)",Drama|Romance|Thriller,personalizada; excluye ítems vistos
+historial amplio,414,2697,"Drama, Comedy, Action","híbrido α=0.75, f=20",9,1287,Ben-Hur (1959),Action|Adventure|Drama,personalizada; excluye ítems vistos
+historial amplio,414,2697,"Drama, Comedy, Action","híbrido α=0.75, f=20",10,74458,Shutter Island (2010),Drama|Mystery|Thriller,personalizada; excluye ítems vistos
+historial pequeño,53,19,"Drama, Comedy, Romance","híbrido α=0.75, f=20",1,858,"Godfather, The (1972)",Crime|Drama,personalizada; excluye ítems vistos
+historial pequeño,53,19,"Drama, Comedy, Romance","híbrido α=0.75, f=20",2,1230,Annie Hall (1977),Comedy|Romance,personalizada; excluye ítems vistos
+historial pequeño,53,19,"Drama, Comedy, Romance","híbrido α=0.75, f=20",3,1208,Apocalypse Now (1979),Action|Drama|War,personalizada; excluye ítems vistos
+historial pequeño,53,19,"Drama, Comedy, Romance","híbrido α=0.75, f=20",4,63082,Slumdog Millionaire (2008),Crime|Drama|Romance,personalizada; excluye ítems vistos
+historial pequeño,53,19,"Drama, Comedy, Romance","híbrido α=0.75, f=20",5,1954,Rocky (1976),Drama,personalizada; excluye ítems vistos
+historial pequeño,53,19,"Drama, Comedy, Romance","híbrido α=0.75, f=20",6,41285,Match Point (2005),Crime|Drama|Romance,personalizada; excluye ítems vistos
+historial pequeño,53,19,"Drama, Comedy, Romance","híbrido α=0.75, f=20",7,1213,Goodfellas (1990),Crime|Drama,personalizada; excluye ítems vistos
+historial pequeño,53,19,"Drama, Comedy, Romance","híbrido α=0.75, f=20",8,924,2001: A Space Odyssey (1968),Adventure|Drama|Sci-Fi,personalizada; excluye ítems vistos
+historial pequeño,53,19,"Drama, Comedy, Romance","híbrido α=0.75, f=20",9,5673,Punch-Drunk Love (2002),Comedy|Drama|Romance,personalizada; excluye ítems vistos
+historial pequeño,53,19,"Drama, Comedy, Romance","híbrido α=0.75, f=20",10,2671,Notting Hill (1999),Comedy|Romance,personalizada; excluye ítems vistos
+usuario nuevo,611,0,,fallback: popularidad suavizada,1,318,"Shawshank Redemption, The (1994)",Crime|Drama,NO personalizada: sin historial no hay señal colaborativa ni de contenido
+usuario nuevo,611,0,,fallback: popularidad suavizada,2,858,"Godfather, The (1972)",Crime|Drama,NO personalizada: sin historial no hay señal colaborativa ni de contenido
+usuario nuevo,611,0,,fallback: popularidad suavizada,3,2959,Fight Club (1999),Action|Crime|Drama|Thriller,NO personalizada: sin historial no hay señal colaborativa ni de contenido
+usuario nuevo,611,0,,fallback: popularidad suavizada,4,260,Star Wars: Episode IV - A New Hope (1977),Action|Adventure|Sci-Fi,NO personalizada: sin historial no hay señal colaborativa ni de contenido
+usuario nuevo,611,0,,fallback: popularidad suavizada,5,50,"Usual Suspects, The (1995)",Crime|Mystery|Thriller,NO personalizada: sin historial no hay señal colaborativa ni de contenido
+usuario nuevo,611,0,,fallback: popularidad suavizada,6,1221,"Godfather: Part II, The (1974)",Crime|Drama,NO personalizada: sin historial no hay señal colaborativa ni de contenido
+usuario nuevo,611,0,,fallback: popularidad suavizada,7,1197,"Princess Bride, The (1987)",Action|Adventure|Comedy|Fantasy|Romance,NO personalizada: sin historial no hay señal colaborativa ni de contenido
+usuario nuevo,611,0,,fallback: popularidad suavizada,8,1213,Goodfellas (1990),Crime|Drama,NO personalizada: sin historial no hay señal colaborativa ni de contenido
+usuario nuevo,611,0,,fallback: popularidad suavizada,9,527,Schindler's List (1993),Drama|War,NO personalizada: sin historial no hay señal colaborativa ni de contenido
+usuario nuevo,611,0,,fallback: popularidad suavizada,10,58559,"Dark Knight, The (2008)",Action|Crime|Drama|IMAX,NO personalizada: sin historial no hay señal colaborativa ni de contenido

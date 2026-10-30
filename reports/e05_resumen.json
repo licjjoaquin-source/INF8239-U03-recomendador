@@ -1,0 +1,44 @@
+{
+  "dataset": "MovieLens ml-latest-small (GroupLens); los datos no se redistribuyen",
+  "ratings_sha256_local": "aa289ca83157595d0df6aea1be6a4ded676ddc4385472e8313a8ed9805352646",
+  "particion": "leave-one-out temporal: la última valoración de cada usuario se reserva para evaluación",
+  "usuarios": 610,
+  "items_en_entrenamiento": 9701,
+  "usuarios_evaluados": 587,
+  "valoraciones_entrenamiento": 100226,
+  "k": 10,
+  "candidatos_hibrido": 100,
+  "semillas": [
+    42,
+    43,
+    44
+  ],
+  "factores": [
+    10,
+    20,
+    40
+  ],
+  "alphas": [
+    0.25,
+    0.5,
+    0.75
+  ],
+  "epocas": 12,
+  "rmse_referencia_media_global": 1.1156660882916472,
+  "rmse_referencia_media_por_pelicula": 1.0502612591083604,
+  "desempate_contenido": "por popularidad (conteo en entrenamiento)",
+  "umbrales_historial": {
+    "q1": 34.0,
+    "q3": 161.0
+  },
+  "entorno": {
+    "python": "3.12.13",
+    "sistema": "Windows-11-10.0.26200-SP0",
+    "procesador": "Intel64 Family 6 Model 154 Stepping 4, GenuineIntel",
+    "nucleos": 12,
+    "numpy": "2.5.3",
+    "pandas": "2.3.3",
+    "scikit_learn": "1.9.1"
+  },
+  "segundos_totales": 89.50928840017878
+}

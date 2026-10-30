@@ -1,0 +1,118 @@
+modelo,factores,alpha,semilla,segmento,hit_rate_at_10,n_usuarios
+popularidad_conteo,0,,-1,historial grande (>=Q3),0.027210884353741496,147
+popularidad_conteo,0,,-1,historial pequeño (<=Q1),0.05806451612903226,155
+popularidad_conteo,0,,-1,intermedio,0.042105263157894736,285
+popularidad_suavizada,0,,-1,historial grande (>=Q3),0.013605442176870748,147
+popularidad_suavizada,0,,-1,historial pequeño (<=Q1),0.03870967741935484,155
+popularidad_suavizada,0,,-1,intermedio,0.03859649122807018,285
+contenido,0,,-1,historial grande (>=Q3),0.0,147
+contenido,0,,-1,historial pequeño (<=Q1),0.0064516129032258064,155
+contenido,0,,-1,intermedio,0.007017543859649123,285
+colaborativo_mf,10,,42,historial grande (>=Q3),0.027210884353741496,147
+colaborativo_mf,10,,42,historial pequeño (<=Q1),0.03870967741935484,155
+colaborativo_mf,10,,42,intermedio,0.03508771929824561,285
+hibrido,10,0.25,42,historial grande (>=Q3),0.02040816326530612,147
+hibrido,10,0.25,42,historial pequeño (<=Q1),0.03870967741935484,155
+hibrido,10,0.25,42,intermedio,0.028070175438596492,285
+hibrido,10,0.5,42,historial grande (>=Q3),0.027210884353741496,147
+hibrido,10,0.5,42,historial pequeño (<=Q1),0.03225806451612903,155
+hibrido,10,0.5,42,intermedio,0.02456140350877193,285
+hibrido,10,0.75,42,historial grande (>=Q3),0.027210884353741496,147
+hibrido,10,0.75,42,historial pequeño (<=Q1),0.025806451612903226,155
+hibrido,10,0.75,42,intermedio,0.03508771929824561,285
+colaborativo_mf,10,,43,historial grande (>=Q3),0.02040816326530612,147
+colaborativo_mf,10,,43,historial pequeño (<=Q1),0.05161290322580645,155
+colaborativo_mf,10,,43,intermedio,0.03859649122807018,285
+hibrido,10,0.25,43,historial grande (>=Q3),0.013605442176870748,147
+hibrido,10,0.25,43,historial pequeño (<=Q1),0.04516129032258064,155
+hibrido,10,0.25,43,intermedio,0.021052631578947368,285
+hibrido,10,0.5,43,historial grande (>=Q3),0.013605442176870748,147
+hibrido,10,0.5,43,historial pequeño (<=Q1),0.03225806451612903,155
+hibrido,10,0.5,43,intermedio,0.028070175438596492,285
+hibrido,10,0.75,43,historial grande (>=Q3),0.02040816326530612,147
+hibrido,10,0.75,43,historial pequeño (<=Q1),0.04516129032258064,155
+hibrido,10,0.75,43,intermedio,0.028070175438596492,285
+colaborativo_mf,10,,44,historial grande (>=Q3),0.013605442176870748,147
+colaborativo_mf,10,,44,historial pequeño (<=Q1),0.03870967741935484,155
+colaborativo_mf,10,,44,intermedio,0.03508771929824561,285
+hibrido,10,0.25,44,historial grande (>=Q3),0.02040816326530612,147
+hibrido,10,0.25,44,historial pequeño (<=Q1),0.03870967741935484,155
+hibrido,10,0.25,44,intermedio,0.02456140350877193,285
+hibrido,10,0.5,44,historial grande (>=Q3),0.013605442176870748,147
+hibrido,10,0.5,44,historial pequeño (<=Q1),0.04516129032258064,155
+hibrido,10,0.5,44,intermedio,0.042105263157894736,285
+hibrido,10,0.75,44,historial grande (>=Q3),0.013605442176870748,147
+hibrido,10,0.75,44,historial pequeño (<=Q1),0.03870967741935484,155
+hibrido,10,0.75,44,intermedio,0.03508771929824561,285
+colaborativo_mf,20,,42,historial grande (>=Q3),0.013605442176870748,147
+colaborativo_mf,20,,42,historial pequeño (<=Q1),0.03225806451612903,155
+colaborativo_mf,20,,42,intermedio,0.05263157894736842,285
+hibrido,20,0.25,42,historial grande (>=Q3),0.02040816326530612,147
+hibrido,20,0.25,42,historial pequeño (<=Q1),0.05161290322580645,155
+hibrido,20,0.25,42,intermedio,0.028070175438596492,285
+hibrido,20,0.5,42,historial grande (>=Q3),0.006802721088435374,147
+hibrido,20,0.5,42,historial pequeño (<=Q1),0.03870967741935484,155
+hibrido,20,0.5,42,intermedio,0.03859649122807018,285
+hibrido,20,0.75,42,historial grande (>=Q3),0.013605442176870748,147
+hibrido,20,0.75,42,historial pequeño (<=Q1),0.03870967741935484,155
+hibrido,20,0.75,42,intermedio,0.04912280701754386,285
+colaborativo_mf,20,,43,historial grande (>=Q3),0.02040816326530612,147
+colaborativo_mf,20,,43,historial pequeño (<=Q1),0.06451612903225806,155
+colaborativo_mf,20,,43,intermedio,0.03859649122807018,285
+hibrido,20,0.25,43,historial grande (>=Q3),0.02040816326530612,147
+hibrido,20,0.25,43,historial pequeño (<=Q1),0.03870967741935484,155
+hibrido,20,0.25,43,intermedio,0.02456140350877193,285
+hibrido,20,0.5,43,historial grande (>=Q3),0.006802721088435374,147
+hibrido,20,0.5,43,historial pequeño (<=Q1),0.03870967741935484,155
+hibrido,20,0.5,43,intermedio,0.03508771929824561,285
+hibrido,20,0.75,43,historial grande (>=Q3),0.013605442176870748,147
+hibrido,20,0.75,43,historial pequeño (<=Q1),0.07741935483870968,155
+hibrido,20,0.75,43,intermedio,0.031578947368421054,285
+colaborativo_mf,20,,44,historial grande (>=Q3),0.02040816326530612,147
+colaborativo_mf,20,,44,historial pequeño (<=Q1),0.03225806451612903,155
+colaborativo_mf,20,,44,intermedio,0.04912280701754386,285
+hibrido,20,0.25,44,historial grande (>=Q3),0.0,147
+hibrido,20,0.25,44,historial pequeño (<=Q1),0.05161290322580645,155
+hibrido,20,0.25,44,intermedio,0.02456140350877193,285
+hibrido,20,0.5,44,historial grande (>=Q3),0.006802721088435374,147
+hibrido,20,0.5,44,historial pequeño (<=Q1),0.06451612903225806,155
+hibrido,20,0.5,44,intermedio,0.04912280701754386,285
+hibrido,20,0.75,44,historial grande (>=Q3),0.013605442176870748,147
+hibrido,20,0.75,44,historial pequeño (<=Q1),0.05161290322580645,155
+hibrido,20,0.75,44,intermedio,0.04912280701754386,285
+colaborativo_mf,40,,42,historial grande (>=Q3),0.02040816326530612,147
+colaborativo_mf,40,,42,historial pequeño (<=Q1),0.03870967741935484,155
+colaborativo_mf,40,,42,intermedio,0.03508771929824561,285
+hibrido,40,0.25,42,historial grande (>=Q3),0.02040816326530612,147
+hibrido,40,0.25,42,historial pequeño (<=Q1),0.025806451612903226,155
+hibrido,40,0.25,42,intermedio,0.031578947368421054,285
+hibrido,40,0.5,42,historial grande (>=Q3),0.013605442176870748,147
+hibrido,40,0.5,42,historial pequeño (<=Q1),0.03870967741935484,155
+hibrido,40,0.5,42,intermedio,0.0456140350877193,285
+hibrido,40,0.75,42,historial grande (>=Q3),0.02040816326530612,147
+hibrido,40,0.75,42,historial pequeño (<=Q1),0.03870967741935484,155
+hibrido,40,0.75,42,intermedio,0.04912280701754386,285
+colaborativo_mf,40,,43,historial grande (>=Q3),0.04081632653061224,147
+colaborativo_mf,40,,43,historial pequeño (<=Q1),0.025806451612903226,155
+colaborativo_mf,40,,43,intermedio,0.03508771929824561,285
+hibrido,40,0.25,43,historial grande (>=Q3),0.013605442176870748,147
+hibrido,40,0.25,43,historial pequeño (<=Q1),0.03870967741935484,155
+hibrido,40,0.25,43,intermedio,0.028070175438596492,285
+hibrido,40,0.5,43,historial grande (>=Q3),0.02040816326530612,147
+hibrido,40,0.5,43,historial pequeño (<=Q1),0.03870967741935484,155
+hibrido,40,0.5,43,intermedio,0.03508771929824561,285
+hibrido,40,0.75,43,historial grande (>=Q3),0.04081632653061224,147
+hibrido,40,0.75,43,historial pequeño (<=Q1),0.01935483870967742,155
+hibrido,40,0.75,43,intermedio,0.03508771929824561,285
+colaborativo_mf,40,,44,historial grande (>=Q3),0.02040816326530612,147
+colaborativo_mf,40,,44,historial pequeño (<=Q1),0.01935483870967742,155
+colaborativo_mf,40,,44,intermedio,0.03508771929824561,285
+hibrido,40,0.25,44,historial grande (>=Q3),0.013605442176870748,147
+hibrido,40,0.25,44,historial pequeño (<=Q1),0.01935483870967742,155
+hibrido,40,0.25,44,intermedio,0.028070175438596492,285
+hibrido,40,0.5,44,historial grande (>=Q3),0.02040816326530612,147
+hibrido,40,0.5,44,historial pequeño (<=Q1),0.025806451612903226,155
+hibrido,40,0.5,44,intermedio,0.03859649122807018,285
+hibrido,40,0.75,44,historial grande (>=Q3),0.027210884353741496,147
+hibrido,40,0.75,44,historial pequeño (<=Q1),0.01935483870967742,155
+hibrido,40,0.75,44,intermedio,0.03859649122807018,285
