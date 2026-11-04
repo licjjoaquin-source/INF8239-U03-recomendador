@@ -31,10 +31,12 @@ No se usan datos demográficos ni identificadores externos.
 
 Partición: leave-one-out temporal, 587 usuarios evaluados.
 
-| Modelo | HitRate@10 | Cobertura | Entrenamiento | Tamaño |
-|---|---|---|---|---|
-| Popularidad por conteo | 0.0426 | 1.2 % | 0 s | 76 KB |
-| Híbrido f=20, α=0.75 | 0.0392 ± 0.0017 | 7.6 % | 9.4 s | 1.6 MB |
+| Modelo | HitRate@10 | Cobertura | Entrenamiento | Tamaño de las matrices | Tamaño total |
+|---|---|---|---|---|---|
+| Popularidad por conteo | 0.0426 | 1.2 % | 0 s | 76 KB | 76 KB |
+| Híbrido f=20, α=0.75 | 0.0392 ± 0.0017 | 7.6 % | 10.5 s | 1.6 MB | 3.4 MB |
+
+El tamaño total del híbrido suma los factores de MF (1.6 MB) y la matriz de géneros con su vector IDF (1.8 MB): unas 45 veces el de la popularidad por conteo. El entrenamiento incluye el ajuste de TF-IDF (0.03 s) y la inferencia (0.82 ms por usuario) incluye la construcción de perfiles.
 
 Error estándar del HitRate ≈ 0.008: la diferencia entre ambos **no es concluyente**. RMSE del híbrido: 1.025, frente a 1.116 (media global) y 1.050 (media por película).
 

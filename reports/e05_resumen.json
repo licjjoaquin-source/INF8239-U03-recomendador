@@ -27,6 +27,16 @@
   "rmse_referencia_media_global": 1.1156660882916472,
   "rmse_referencia_media_por_pelicula": 1.0502612591083604,
   "desempate_contenido": "por popularidad (conteo en entrenamiento)",
+  "alcance_costo": {
+    "entrenamiento_s": "popularidad: 0; contenido: ajuste de TF-IDF; MF: factorización; híbrido: factorización + ajuste de TF-IDF",
+    "inferencia_ms_por_usuario": "incluye perfiles de usuario y puntajes de contenido en contenido e híbrido",
+    "tamano_kb": "solo matrices propias del método (vector de conteos, matriz de géneros o factores de MF)",
+    "tamano_total_kb": "todo lo que el método necesita para recomendar: matrices + matriz de géneros + vector IDF (+ conteos de desempate en contenido)"
+  },
+  "tiempos_compartidos_s": {
+    "tfidf": 0.030195800121873617,
+    "perfiles_contenido": 0.07319189980626106
+  },
   "umbrales_historial": {
     "q1": 34.0,
     "q3": 161.0
@@ -40,5 +50,5 @@
     "pandas": "2.3.3",
     "scikit_learn": "1.9.1"
   },
-  "segundos_totales": 89.50928840017878
+  "segundos_totales": 97.20065640006214
 }
