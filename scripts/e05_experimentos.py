@@ -114,11 +114,18 @@ def main() -> None:
     rmse_item_mean = float(np.sqrt(np.mean((y_true - evaluable["movieId"].map(item_mean).fillna(global_mean).to_numpy()) ** 2)))
 
     # ------------------------------------------------------------------ contenido: perfil de géneros por usuario
+    # Alcance de costo común: el TF-IDF (ajuste) y la construcción de perfiles se miden aquí
+    # y se cargan a los métodos que los usan (contenido e híbrido); antes quedaban fuera.
+    t0 = perf_counter()
     movie_table = movies.reset_index(drop=True).copy()
     genres_text = movie_table["genres"].str.replace("|", " ", regex=False)
-    genre_all = TfidfVectorizer().fit_transform(genres_text).toarray()
+    tfidf = TfidfVectorizer()
+    genre_all = tfidf.fit_transform(genres_text).toarray()
     movie_row = {int(m): i for i, m in enumerate(movie_table["movieId"])}
     genre = genre_all[[movie_row[int(m)] for m in items]]
+    t_tfidf = perf_counter() - t0
+    idf_bytes = tfidf.idf_.nbytes
+    t0 = perf_counter()
     weights = np.clip(train["rating"].to_numpy() - 2.5, 0.1, None)
     weight_matrix = np.zeros((n_users, n_items))
     weight_matrix[u_idx, i_idx] = weights
@@ -127,6 +134,7 @@ def main() -> None:
     norms[norms == 0] = 1.0
     content_eval = (profile @ genre.T) / norms  # filas de `genre` ya tienen norma 1 (TF-IDF con norma L2)
     del weight_matrix
+    t_perfiles = perf_counter() - t0  # perfiles de usuario + puntajes de contenido para los usuarios evaluados
 
     # ------------------------------------------------------------------ utilidades de evaluación
     rows: list[dict] = []
@@ -168,7 +176,8 @@ def main() -> None:
     recs = lists_from_order(np.array([item_index[m] for m in stats.index]))
     elapsed = perf_counter() - t0
     evaluate("popularidad_conteo", 0, np.nan, DETERMINISTIC, recs, rmse=np.nan, train_seconds=0.0,
-             infer_ms_por_usuario=1000 * elapsed / n_eval, tamano_kb=item_count.nbytes / 1024)
+             infer_ms_por_usuario=1000 * elapsed / n_eval, tamano_kb=item_count.nbytes / 1024,
+             tamano_total_kb=item_count.nbytes / 1024)
 
     t0 = perf_counter()
     smoothed = weighted_popularity(train, movies)
@@ -176,7 +185,8 @@ def main() -> None:
     recs = lists_from_order(smoothed_order)
     elapsed = perf_counter() - t0
     evaluate("popularidad_suavizada", 0, np.nan, DETERMINISTIC, recs, rmse=np.nan, train_seconds=0.0,
-             infer_ms_por_usuario=1000 * elapsed / n_eval, tamano_kb=smoothed_order.nbytes / 1024)
+             infer_ms_por_usuario=1000 * elapsed / n_eval, tamano_kb=smoothed_order.nbytes / 1024,
+             tamano_total_kb=smoothed_order.nbytes / 1024)
 
     t0 = perf_counter()
     content_index = np.zeros((n_eval, K), dtype=int)
@@ -185,8 +195,12 @@ def main() -> None:
         # desempate por popularidad: los empates de géneros son masivos en este catálogo
         content_index[r] = np.lexsort((-item_count, -np.round(masked, 9)))[:K]
     elapsed = perf_counter() - t0
-    evaluate("contenido", 0, np.nan, DETERMINISTIC, lists_from_matrix(content_index), rmse=np.nan, train_seconds=0.0,
-             infer_ms_por_usuario=1000 * elapsed / n_eval, tamano_kb=genre.nbytes / 1024)
+    # entrenamiento = ajuste de TF-IDF; inferencia = perfiles + clasificación; tamaño total = matriz de géneros
+    # + vector IDF + conteos usados para el desempate
+    evaluate("contenido", 0, np.nan, DETERMINISTIC, lists_from_matrix(content_index), rmse=np.nan,
+             train_seconds=t_tfidf, infer_ms_por_usuario=1000 * (t_perfiles + elapsed) / n_eval,
+             tamano_kb=genre.nbytes / 1024,
+             tamano_total_kb=(genre.nbytes + idf_bytes + item_count.nbytes) / 1024)
 
     # ------------------------------------------------------------------ modelos con semilla: MF y híbrido
     demo_cache: dict | None = None
@@ -210,7 +224,8 @@ def main() -> None:
             cf_scores = np.take_along_axis(scores, top_idx, axis=1)
             t_cf = perf_counter() - t0
             evaluate("colaborativo_mf", factors, np.nan, seed, lists_from_matrix(top_idx), rmse=rmse,
-                     train_seconds=train_seconds, infer_ms_por_usuario=1000 * t_cf / n_eval, tamano_kb=size_kb)
+                     train_seconds=train_seconds, infer_ms_por_usuario=1000 * t_cf / n_eval, tamano_kb=size_kb,
+                     tamano_total_kb=size_kb)
 
             t0 = perf_counter()
             norm_cf = minmax(cf_scores)
@@ -223,8 +238,10 @@ def main() -> None:
                 chosen = np.take_along_axis(top_idx, order, axis=1)
                 t_re = perf_counter() - t0
                 evaluate("hibrido", factors, alpha, seed, lists_from_matrix(chosen), rmse=rmse,
-                         train_seconds=train_seconds,
-                         infer_ms_por_usuario=1000 * (t_cf + t_prep + t_re) / n_eval, tamano_kb=size_kb)
+                         train_seconds=train_seconds + t_tfidf,  # MF + ajuste de TF-IDF
+                         infer_ms_por_usuario=1000 * (t_cf + t_prep + t_re + t_perfiles) / n_eval,
+                         tamano_kb=size_kb,  # solo matrices de factores
+                         tamano_total_kb=size_kb + (genre.nbytes + idf_bytes) / 1024)  # híbrido completo
                 if factors == args.demo_factors and seed == args.seeds[0] and alpha == args.demo_alpha:
                     demo_cache = {"chosen": chosen}
                     demo_model = model
@@ -238,7 +255,7 @@ def main() -> None:
 
     keys = ["modelo", "factores", "alpha"]
     metric_cols = ["hit_rate_at_10", "ndcg_at_10", "cobertura", "participacion_top100_popular", "rmse",
-                   "train_seconds", "infer_ms_por_usuario", "costo_segundos", "tamano_kb"]
+                   "train_seconds", "infer_ms_por_usuario", "costo_segundos", "tamano_kb", "tamano_total_kb"]
     grouped = detail.groupby(keys, dropna=False)[metric_cols]
     summary = grouped.mean().add_suffix("_media").join(grouped.std().fillna(0.0).add_suffix("_std")).reset_index()
     summary["n_semillas"] = detail.groupby(keys, dropna=False)["semilla"].nunique().to_numpy()
@@ -260,15 +277,15 @@ def main() -> None:
         return r["modelo"].replace("_", " ")
 
     summary["configuracion"] = summary.apply(label, axis=1)
-    lines = ["| Configuración | HitRate@10 | NDCG@10 | Cobertura | RMSE | Entrenamiento (s) | Inferencia (ms/usuario) | Tamaño (KB) | Pareto 3 obj. | Pareto 2 obj. |",
-             "|---|---|---|---|---|---|---|---|---|---|"]
+    lines = ["| Configuración | HitRate@10 | NDCG@10 | Cobertura | RMSE | Entrenamiento (s) | Inferencia (ms/usuario) | Tamaño matrices (KB) | Tamaño total (KB) | Pareto 3 obj. | Pareto 2 obj. |",
+             "|---|---|---|---|---|---|---|---|---|---|---|"]
     for _, r in summary.iterrows():
         rmse_txt = "n/a" if pd.isna(r["rmse_media"]) else f"{r['rmse_media']:.3f}"
         lines.append(
             f"| {r['configuracion']} | {r['hit_rate_at_10_media']:.4f} ± {r['hit_rate_at_10_std']:.4f} "
             f"| {r['ndcg_at_10_media']:.4f} | {r['cobertura_media']:.3f} | {rmse_txt} "
-            f"| {r['train_seconds_media']:.1f} | {r['infer_ms_por_usuario_media']:.2f} "
-            f"| {r['tamano_kb_media']:.0f} | {'sí' if r['pareto'] else 'no'} | {'sí' if r['pareto_2d'] else 'no'} |"
+            f"| {r['train_seconds_media']:.3f} | {r['infer_ms_por_usuario_media']:.2f} "
+            f"| {r['tamano_kb_media']:.0f} | {r['tamano_total_kb_media']:.0f} | {'sí' if r['pareto'] else 'no'} | {'sí' if r['pareto_2d'] else 'no'} |"
         )
     (out / "e05_tabla_principal.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
@@ -334,6 +351,13 @@ def main() -> None:
         "semillas": args.seeds, "factores": args.factors, "alphas": args.alphas, "epocas": args.epochs,
         "rmse_referencia_media_global": rmse_global, "rmse_referencia_media_por_pelicula": rmse_item_mean,
         "desempate_contenido": "por popularidad (conteo en entrenamiento)",
+        "alcance_costo": {
+            "entrenamiento_s": "popularidad: 0; contenido: ajuste de TF-IDF; MF: factorización; híbrido: factorización + ajuste de TF-IDF",
+            "inferencia_ms_por_usuario": "incluye perfiles de usuario y puntajes de contenido en contenido e híbrido",
+            "tamano_kb": "solo matrices propias del método (vector de conteos, matriz de géneros o factores de MF)",
+            "tamano_total_kb": "todo lo que el método necesita para recomendar: matrices + matriz de géneros + vector IDF (+ conteos de desempate en contenido)",
+        },
+        "tiempos_compartidos_s": {"tfidf": t_tfidf, "perfiles_contenido": t_perfiles},
         "umbrales_historial": {"q1": float(q1), "q3": float(q3)},
         "entorno": {
             "python": sys.version.split()[0], "sistema": platform.platform(), "procesador": platform.processor(),

@@ -11,21 +11,23 @@ Se comparan cuatro familias de recomendadores sobre MovieLens `ml-latest-small` 
 
 - Su HitRate@10 (0.039) **no se distingue estadísticamente** del baseline de popularidad por conteo (0.043; error estándar ≈ 0.008). No se afirma que acierte más.
 - Su ventaja es la **cobertura del catálogo** (7.6 % frente a 1.2 %) y menor concentración en las 100 películas más populares (57 % de las posiciones frente a 99 %).
-- Su costo es mayor: unos 10 s de entrenamiento y 1.6 MB frente a 76 KB.
+- Su costo es mayor: unos 10.5 s de entrenamiento (incluye 0.03 s del ajuste de TF-IDF), 0.82 ms por usuario al recomendar (incluye la construcción de perfiles) y 3.4 MB completo (1.6 MB de factores más 1.8 MB de la matriz de géneros) frente a 76 KB: unas 45 veces.
 - Si el único criterio fuera aciertos por costo, el baseline de popularidad por conteo sería la elección.
 
 ## Resultados principales
 
 Evaluación sobre 587 usuarios, media de 3 semillas (42, 43, 44) para los modelos entrenados. Popularidad y contenido son deterministas.
 
-| Configuración | HitRate@10 | NDCG@10 | Cobertura | RMSE | Entrenamiento (s) | Tamaño (KB) |
-|---|---|---|---|---|---|---|
-| Popularidad por conteo (baseline) | 0.0426 | 0.0197 | 0.012 | n/a | 0.0 | 76 |
-| Popularidad suavizada | 0.0324 | 0.0168 | 0.006 | n/a | 0.0 | 15 |
-| Contenido (géneros, desempate por popularidad) | 0.0051 | 0.0021 | 0.082 | n/a | 0.0 | 1819 |
-| Factorización MF, 20 factores | 0.0386 ± 0.0020 | 0.0185 | 0.074 | 1.025 | 9.4 | 1611 |
-| **Híbrido, 20 factores, α = 0.75** | **0.0392 ± 0.0017** | 0.0184 | 0.076 | 1.025 | 9.4 | 1611 |
-| Híbrido, 40 factores, α = 0.25 | 0.0256 ± 0.0030 | 0.0124 | 0.122 | 1.019 | 9.3 | 3222 |
+| Configuración | HitRate@10 | NDCG@10 | Cobertura | RMSE | Entrenamiento (s) | Inferencia (ms/usuario) | Tamaño matrices (KB) | Tamaño total (KB) |
+|---|---|---|---|---|---|---|---|---|
+| Popularidad por conteo (baseline) | 0.0426 | 0.0197 | 0.012 | n/a | 0.000 | 0.04 | 76 | 76 |
+| Popularidad suavizada | 0.0324 | 0.0168 | 0.006 | n/a | 0.000 | 0.02 | 15 | 15 |
+| Contenido (géneros, desempate por popularidad) | 0.0051 | 0.0021 | 0.082 | n/a | 0.030 | 0.85 | 1819 | 1895 |
+| Factorización MF, 20 factores | 0.0386 ± 0.0020 | 0.0185 | 0.074 | 1.025 | 10.488 | 0.69 | 1611 | 1611 |
+| **Híbrido, 20 factores, α = 0.75** | **0.0392 ± 0.0017** | 0.0184 | 0.076 | 1.025 | 10.518 | 0.82 | 1611 | 3430 |
+| Híbrido, 40 factores, α = 0.25 | 0.0256 ± 0.0030 | 0.0124 | 0.122 | 1.019 | 10.531 | 0.84 | 3222 | 5041 |
+
+**Alcance del costo (igual para todos los métodos).** El entrenamiento de contenido e híbrido incluye el ajuste de TF-IDF (0.03 s); la inferencia incluye la construcción de perfiles de usuario. *Tamaño matrices* es lo propio de cada método (conteos, matriz de géneros o factores de MF); *Tamaño total* es todo lo que necesita para recomendar: en el híbrido, factores más matriz de géneros y vector IDF. Los tiempos varían alrededor de un 10 % entre corridas del mismo código (MF con 20 factores midió entre 9.4 y 11.6 s), por lo que solo se comparan dentro de una misma corrida.
 
 Referencias de RMSE: predecir siempre la media global da 1.116 y la media por película da 1.050. La tabla completa (15 configuraciones, con Pareto) está en `reports/e05_tabla_principal.md`.
 
